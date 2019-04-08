@@ -1,7 +1,7 @@
 package com.hukarshu.accountservice.repository;
 
 import com.hukarshu.accountservice.domain.Account;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -10,6 +10,6 @@ import org.springframework.stereotype.Repository;
  * @Description:
  */
 @Repository
-public interface AccountRepository extends CrudRepository<Account, String> {
-    Account findByName(String name);
+public interface AccountRepository extends JpaRepository<Account, String> {
+    Account findByNickname(String nickname);
 }
