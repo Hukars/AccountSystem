@@ -27,7 +27,7 @@ public class MonthlyItems {
     @NotNull
     @Valid
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, targetEntity = Item.class)
-    @JoinTable(name = "MONTHLYITEMSLIST_ITEM", joinColumns = { @JoinColumn(name = "CURRENT_MONTH") }, inverseJoinColumns = { @JoinColumn(name = "ITEM_ID")})
+    @JoinTable(name = "MONTHLYITEMSLIST_ITEM", joinColumns = { @JoinColumn(name = "MONTH_ID") }, inverseJoinColumns = { @JoinColumn(name = "ITEM_ID")})
     private List<Item> items;
 
     public long getId() {

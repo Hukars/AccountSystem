@@ -9,7 +9,9 @@ import com.hukarshu.accountservice.domain.User;
  * @Description:
  */
 public interface AccountService {
-    Account findByNickname(String nickName);
+    Account findByNickname(String nickname);
 
     Account createAccount(User user);
+
+    void saveChanges(String nickname,Account account);
 }

@@ -1,5 +1,6 @@
 package com.hukarshu.accountservice.service;
 
+import com.hukarshu.accountservice.client.AuthFeignClient;
 import com.hukarshu.accountservice.domain.Account;
 import com.hukarshu.accountservice.domain.Saving;
 import com.hukarshu.accountservice.domain.User;
@@ -25,6 +26,8 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     AccountRepository accountRepository;
 
+//    @Autowired
+//    AuthFeignClient authFeignClient;
     @Override
     public Account findByNickname(String nickname){
         if(!nickname.isEmpty())
@@ -37,7 +40,7 @@ public class AccountServiceImpl implements AccountService {
         Account existing = accountRepository.findByNickname(user.getUsername());
         Assert.isNull(existing,"User already exists:"+user.getUsername());
 
-        //authClient.createUser(user);
+        //authFeignClient.createUser(user);
         //Saving saving = new Saving();
 
         Account account = new Account();
@@ -50,5 +53,19 @@ public class AccountServiceImpl implements AccountService {
         return  account;
     }
 
+    @Override
+    public void saveChanges(String nickname,Account newOne){
+        Account account = accountRepository.findByNickname(nickname);
+        Assert.isNull(account,"can't find account with name " + nickname);
+
+        account.setLastLogin(new Date());
+        account.setNote(newOne.getNote());
+        account.setMonthlyItems(newOne.getMonthlyItems());
+
+        accountRepository.save(account);
+
+        log.debug("account {} changes has been saved", nickname);
+
+    }
 
 }
