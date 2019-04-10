@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.Optional;
 
@@ -22,19 +23,32 @@ public class UserServiceImpl implements UserService {
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
     @Autowired
-    private UserRepository repository;
+    private UserRepository userRepository;
 
     @Override
     public void create(User user) {
 
-        Optional<User> existing = repository.findById(user.getUsername());
+        Optional<User> existing = userRepository.findById(user.getUsername());
         existing.ifPresent(it-> {throw new IllegalArgumentException("user already exists: " + it.getUsername());});
 
         String hash = encoder.encode(user.getPassword());
         user.setPassword(hash);
 
-        repository.save(user);
+        userRepository.save(user);
 
         log.info("new user has been created: {}", user.getUsername());
     }
+
+    @Override
+    public void saveOne(String username,User newOne){
+        User user = userRepository.findByUsername("hukarshu");
+        Assert.notNull(user,"can't find user with name " + username);
+        Assert.state(newOne.getPassword().length()<15,"the length of the password should be between 6 and 15");
+
+        user.setPassword(encoder.encode(newOne.getPassword()));
+        userRepository.save(user);
+
+        log.info("password has been changed:{}",username);
+    }
+
 }

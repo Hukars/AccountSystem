@@ -4,10 +4,7 @@ import com.hukarshu.authservice.domain.User;
 import com.hukarshu.authservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -28,9 +25,15 @@ public class UserController {
         return principal;
     }
 
+    @RequestMapping(value = "/current",method = RequestMethod.PUT)
+    public void saveUser(Principal principal,@Valid @RequestBody User user){
+        userService.saveOne(principal.getName(),user);
+    }
+
     @PreAuthorize("#oauth2.hasScope('server')")
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(value = "/", method = RequestMethod.POST)
     public void createUser(@Valid @RequestBody User user) {
         userService.create(user);
     }
+
 }

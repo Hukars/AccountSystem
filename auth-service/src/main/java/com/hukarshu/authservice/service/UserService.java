@@ -9,4 +9,7 @@ import com.hukarshu.authservice.domain.User;
  */
 public interface UserService {
     void create(User user);
+
+    void saveOne(String name,User user);
+
 }

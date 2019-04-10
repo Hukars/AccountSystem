@@ -1,6 +1,7 @@
 package com.hukarshu.accountservice.controller;
 
 import com.hukarshu.accountservice.domain.Account;
+import com.hukarshu.accountservice.domain.AccountDTO;
 import com.hukarshu.accountservice.domain.User;
 import com.hukarshu.accountservice.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class AccountController {
     public Account getCurrentOne(Principal principal){return accountService.findByNickname(principal.getName());}
 
     @PutMapping("/current")
-    public void saveCurrentOne(Principal principal,@Valid @RequestBody Account account){
+    public void saveCurrentOne(Principal principal,@RequestBody AccountDTO account){
         accountService.saveChanges(principal.getName(),account);
     }
 

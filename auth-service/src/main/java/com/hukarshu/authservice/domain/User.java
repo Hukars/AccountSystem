@@ -1,10 +1,12 @@
 package com.hukarshu.authservice.domain;
 
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 /**
@@ -15,8 +17,10 @@ import java.util.List;
 @Entity
 public class User implements UserDetails {
     @Id
+    @NotNull
     private String username;
 
+    @NotNull
     private String password;
 
     @Override
@@ -24,7 +28,7 @@ public class User implements UserDetails {
         return username;
     }
 
-    public void setUserName(String username){
+    public void setUsername(String username){
         this.username = username;
     }
 

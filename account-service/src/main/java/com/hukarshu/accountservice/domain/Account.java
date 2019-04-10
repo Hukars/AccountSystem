@@ -74,11 +74,11 @@ public class Account {
         this.lastLogin = lastLogin;
     }
 
-    public List<MonthlyItems> getMonthlyItems() {
+    public List<MonthlyItems> getMonthlyItemsList() {
         return monthlyItemsList;
     }
 
-    public void setMonthlyItems(List<MonthlyItems> monthlyItemsList) {
+    public void setMonthlyItemsList(List<MonthlyItems> monthlyItemsList) {
         this.monthlyItemsList = monthlyItemsList;
     }
 

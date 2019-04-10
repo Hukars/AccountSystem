@@ -1,6 +1,7 @@
 package com.hukarshu.accountservice.service;
 
 import com.hukarshu.accountservice.domain.Account;
+import com.hukarshu.accountservice.domain.AccountDTO;
 import com.hukarshu.accountservice.domain.User;
 
 /**
@@ -13,5 +14,5 @@ public interface AccountService {
 
     Account createAccount(User user);
 
-    void saveChanges(String nickname,Account account);
+    void saveChanges(String nickname, AccountDTO account);
 }

@@ -2,6 +2,7 @@ package com.hukarshu.accountservice.service;
 
 import com.hukarshu.accountservice.client.AuthFeignClient;
 import com.hukarshu.accountservice.domain.Account;
+import com.hukarshu.accountservice.domain.AccountDTO;
 import com.hukarshu.accountservice.domain.Saving;
 import com.hukarshu.accountservice.domain.User;
 import com.hukarshu.accountservice.repository.AccountRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 /**
@@ -26,8 +28,9 @@ public class AccountServiceImpl implements AccountService {
     @Autowired
     AccountRepository accountRepository;
 
-//    @Autowired
-//    AuthFeignClient authFeignClient;
+    @Resource
+    AuthFeignClient authFeignClient;
+
     @Override
     public Account findByNickname(String nickname){
         if(!nickname.isEmpty())
@@ -40,7 +43,7 @@ public class AccountServiceImpl implements AccountService {
         Account existing = accountRepository.findByNickname(user.getUsername());
         Assert.isNull(existing,"User already exists:"+user.getUsername());
 
-        //authFeignClient.createUser(user);
+        authFeignClient.createUser(user);
         //Saving saving = new Saving();
 
         Account account = new Account();
@@ -54,13 +57,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void saveChanges(String nickname,Account newOne){
+    public void saveChanges(String nickname, AccountDTO newOne){
         Account account = accountRepository.findByNickname(nickname);
-        Assert.isNull(account,"can't find account with name " + nickname);
+        Assert.notNull(account,"can't find account with name " + nickname);
 
         account.setLastLogin(new Date());
         account.setNote(newOne.getNote());
-        account.setMonthlyItems(newOne.getMonthlyItems());
+        account.setMonthlyItemsList(newOne.getMonthlyItemsList());
 
         accountRepository.save(account);
 
