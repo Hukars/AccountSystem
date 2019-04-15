@@ -10,17 +10,16 @@ import java.util.List;
  */
 public class AccountDTO {
 
-    private List<MonthlyItems> monthlyItemsList;
+    private List<Item> itemList;
 
     private String note;
 
-
-    public List<MonthlyItems> getMonthlyItemsList() {
-        return monthlyItemsList;
+    public List<Item> getItemList() {
+        return itemList;
     }
 
-    public void setMonthlyItemsList(List<MonthlyItems> monthlyItemsList) {
-        this.monthlyItemsList = monthlyItemsList;
+    public void setItemList(List<Item> itemList) {
+        this.itemList = itemList;
     }
 
     public String getNote() {
@@ -30,4 +29,6 @@ public class AccountDTO {
     public void setNote(String note) {
         this.note = note;
     }
+
+
 }

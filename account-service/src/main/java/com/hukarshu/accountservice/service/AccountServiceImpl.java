@@ -1,10 +1,7 @@
 package com.hukarshu.accountservice.service;
 
 import com.hukarshu.accountservice.client.AuthFeignClient;
-import com.hukarshu.accountservice.domain.Account;
-import com.hukarshu.accountservice.domain.AccountDTO;
-import com.hukarshu.accountservice.domain.Saving;
-import com.hukarshu.accountservice.domain.User;
+import com.hukarshu.accountservice.domain.*;
 import com.hukarshu.accountservice.repository.AccountRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +10,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Auther: hukarshu
@@ -63,7 +62,11 @@ public class AccountServiceImpl implements AccountService {
 
         account.setLastLogin(new Date());
         account.setNote(newOne.getNote());
-        account.setMonthlyItemsList(newOne.getMonthlyItemsList());
+        if(!newOne.getItemList().isEmpty()) {
+            List<MonthlyItems> tempList = account.getMonthlyItemsList();
+            MonthlyItems monthlyItems =  getCurrentMonthItems(tempList);
+            monthlyItems.getItems().addAll(newOne.getItemList());
+        }
 
         accountRepository.save(account);
 
@@ -71,4 +74,22 @@ public class AccountServiceImpl implements AccountService {
 
     }
 
+    private MonthlyItems getCurrentMonthItems(List<MonthlyItems> list){
+        Calendar now = Calendar.getInstance();
+        if(list.isEmpty()){
+            MonthlyItems newMonthlyItems = new MonthlyItems(now.get(Calendar.YEAR),now.get(Calendar.MONTH) + 1,null);
+            list.add(newMonthlyItems);
+            return newMonthlyItems;
+        }
+        else{
+            MonthlyItems  monthlyItems = list.get(list.size()-1);
+            if(monthlyItems.getCurrentYear().equals(now.get(Calendar.YEAR)) && monthlyItems.getCurrentMonth().equals(now.get(Calendar.MONTH) + 1))
+                return monthlyItems;
+            else{
+                MonthlyItems newMonthlyItems = new MonthlyItems(now.get(Calendar.YEAR),now.get(Calendar.MONTH) + 1,null);
+                list.add(newMonthlyItems);
+                return newMonthlyItems;
+            }
+        }
+    }
 }

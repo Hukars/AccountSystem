@@ -20,8 +20,12 @@ public class MonthlyItems {
     private long id;
 
     @NotNull
+    @Column(name="CURRENT_YEAR")
+    private Integer currentYear;
+
+    @NotNull
     @Column(name="CURRENT_MONTH")
-    private Date currentMonth;
+    private Integer currentMonth;
 
     //本月收支情况
     @NotNull
@@ -30,6 +34,12 @@ public class MonthlyItems {
     @JoinTable(name = "MONTHLYITEMSLIST_ITEM", joinColumns = { @JoinColumn(name = "MONTH_ID") }, inverseJoinColumns = { @JoinColumn(name = "ITEM_ID")})
     private List<Item> items;
 
+    public MonthlyItems(Integer currentYear, Integer currentMonth, List<Item> items){
+        this.currentYear = currentYear;
+        this.currentMonth = currentMonth;
+        this.items = items;
+    }
+
     public long getId() {
         return id;
     }
@@ -37,11 +47,20 @@ public class MonthlyItems {
     public void setId(long id) {
         this.id = id;
     }
-    public Date getCurrentMonth() {
+
+    public Integer getCurrentYear() {
+        return currentYear;
+    }
+
+    public void setCurrentYear(Integer currentYear) {
+        this.currentYear = currentYear;
+    }
+
+    public Integer getCurrentMonth() {
         return currentMonth;
     }
 
-    public void setCurrentMonth(Date currentMonth) {
+    public void setCurrentMonth(Integer currentMonth) {
         this.currentMonth = currentMonth;
     }
 
@@ -52,6 +71,5 @@ public class MonthlyItems {
     public void setItems(List<Item> items) {
         this.items = items;
     }
-
 
 }
