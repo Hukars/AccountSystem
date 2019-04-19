@@ -72,6 +72,8 @@ public class AccountServiceImpl implements AccountService {
 
         log.debug("account {} changes has been saved", nickname);
 
+        //在这里更新statistics
+
     }
 
     private MonthlyItems getCurrentMonthItems(List<MonthlyItems> list){

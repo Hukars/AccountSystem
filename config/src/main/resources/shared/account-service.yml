@@ -1,0 +1,28 @@
+security:
+  oauth2:
+    client:
+      clientId: account-service
+      clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
+      accessTokenUri: http://auth-service:5000/uaa/oauth/token
+      grant-type: client_credentials
+      scope: server
+    resource:
+      userInfoUri: http://localhost:5000/uaa/users/current
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/account?serverTimezone=GMT%2B8
+    username: springuserAccount
+    password: account
+  jpa:
+   hibernate:
+     ddlAuto: none
+
+server:
+  servlet:
+    context-path: /accounts
+  port: 8020
+
+feign:
+  hystrix:
+    enabled: true

@@ -1,8 +1,6 @@
 package com.hukarshu.accountservice.domain;
 
 
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -28,10 +26,6 @@ public class Item {
     @NotNull
     private BigDecimal amount;
 
-    //收支项货币形式
-    @NotNull
-    private Currency currency;
-
     //收支项的添加时间
     @NotNull
     private Date addTime;
@@ -40,9 +34,12 @@ public class Item {
     @NotNull
     private String icon;
 
-    //是否是收入项
+    //条目类型
     @NotNull
-    private Boolean isIncome;
+    private ItemType itemType;
+
+    //收支项的备注
+    private String remark;
 
     public long getId() {
         return id;
@@ -68,14 +65,6 @@ public class Item {
         this.amount = amount;
     }
 
-    public Currency getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
-    }
-
     public Date getAddTime() {
         return addTime;
     }
@@ -92,5 +81,20 @@ public class Item {
         this.icon = icon;
     }
 
+    public ItemType getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(ItemType itemType) {
+        this.itemType = itemType;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
 }

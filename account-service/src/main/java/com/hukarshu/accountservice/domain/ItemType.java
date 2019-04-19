@@ -5,10 +5,7 @@ package com.hukarshu.accountservice.domain;
  * @Date: 2019/4/8 11:23
  * @Description:
  */
-public enum Currency {
-    CNY, USD, EUR, RUB;
-
-    public static Currency getDefault() {
-        return CNY;
-    }
+public enum ItemType {
+    //收入，支出，借入，借出
+    INC, EXP, BOR, Len;
 }
