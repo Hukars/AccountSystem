@@ -1,9 +1,14 @@
+server:
+  servlet:
+    context-path: /accounts
+  port: 8020
+
 security:
   oauth2:
     client:
       clientId: account-service
       clientSecret: ${ACCOUNT_SERVICE_PASSWORD}
-      accessTokenUri: http://auth-service:5000/uaa/oauth/token
+      accessTokenUri: http://localhost:5000/uaa/oauth/token
       grant-type: client_credentials
       scope: server
     resource:
@@ -17,11 +22,6 @@ spring:
   jpa:
    hibernate:
      ddlAuto: none
-
-server:
-  servlet:
-    context-path: /accounts
-  port: 8020
 
 feign:
   hystrix:
