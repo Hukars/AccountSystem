@@ -33,8 +33,9 @@ public class StatisticController {
         return statisticService.findByNickname(nickname);
     }
 
+    @PreAuthorize("#oauth2.hasScope('server')")
     @PostMapping("/{nickname}")
-    public void createOne(@PathVariable String nickname){
+    public void createOneStatistics(@PathVariable String nickname){
         statisticService.createStatistics(nickname);
     }
 

@@ -14,11 +14,17 @@ security:
     resource:
       userInfoUri: http://localhost:5000/uaa/users/current
 
+#spring:
+#  data:
+#    mongodb:
+#      uri: mongodb://springuserStatistic:statistic@localhost:27017/?authSource=statistics
 spring:
   data:
     mongodb:
       host: localhost
+      port: 27017
+      database: statistics
+#      uri: mongodb://localhost:27017/?authSource=statistics
       username: springuserStatistic
       password: statistic
-      database: statistics
-      port: 27017
+

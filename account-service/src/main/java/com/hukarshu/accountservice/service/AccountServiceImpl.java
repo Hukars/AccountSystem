@@ -1,6 +1,7 @@
 package com.hukarshu.accountservice.service;
 
 import com.hukarshu.accountservice.client.AuthFeignClient;
+import com.hukarshu.accountservice.client.StatisticFeignClient;
 import com.hukarshu.accountservice.domain.*;
 import com.hukarshu.accountservice.repository.AccountRepository;
 import org.slf4j.Logger;
@@ -30,6 +31,9 @@ public class AccountServiceImpl implements AccountService {
     @Resource
     AuthFeignClient authFeignClient;
 
+    @Resource
+    StatisticFeignClient statisticFeignClient;
+
     @Override
     public Account findByNickname(String nickname){
         if(!nickname.isEmpty())
@@ -43,6 +47,7 @@ public class AccountServiceImpl implements AccountService {
         Assert.isNull(existing,"User already exists:"+user.getUsername());
 
         authFeignClient.createUser(user);
+        statisticFeignClient.createOneStatistics(user.getUsername());
         //Saving saving = new Saving();
 
         Account account = new Account();
@@ -73,6 +78,7 @@ public class AccountServiceImpl implements AccountService {
         log.debug("account {} changes has been saved", nickname);
 
         //在这里更新statistics
+        statisticFeignClient.updateStatistics(nickname,newOne.getItemList());
 
     }
 

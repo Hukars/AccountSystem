@@ -12,12 +12,18 @@ zuul:
       path: /uaa/**
       url: http://localhost:5000
       stripPrefix: false
-      sensitiveHeaders:
+
 
     account-service:
       path: /accounts/**
       serviceId: account-service
       stripPrefix: false
-      sensitiveHeaders:
+
+
+    statistic-service:
+      path: /statistics/**
+      serviceId: statistic-service
+      stripPrefix: false
+
 
 

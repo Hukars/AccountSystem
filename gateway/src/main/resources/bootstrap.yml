@@ -1,11 +1,9 @@
 spring:
   application:
-    name: statistic-service
+    name: gateway
   cloud:
     config:
       uri: http://localhost:8888
       fail-fast: true
       password: ${CONFIG_SERVICE_PASSWORD}
       username: user
-  main:
-    allow-bean-definition-overriding: true
