@@ -2,28 +2,44 @@ server:
   port: 8080
 
 zuul:
+  sensitiveHeaders: Cookie,Set-Cookie
   ignoredServices: '*'
   host:
-    connect-timeout-millis: 20000
-    socket-timeout-millis: 20000
+    connect-timeout-millis: 100000
+    socket-timeout-millis: 100000
 
   routes:
     auth-service:
       path: /uaa/**
-      url: http://localhost:5000
+      serviceId: auth-service
       stripPrefix: false
-
 
     account-service:
       path: /accounts/**
       serviceId: account-service
       stripPrefix: false
 
-
     statistic-service:
       path: /statistics/**
       serviceId: statistic-service
       stripPrefix: false
+
+    notification-service:
+      path: /notifications/**
+      serviceId: notification-service
+      stripPrefix: false
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+ribbon:
+  ReadTimeout: 20000
+  ConnectTimeout: 20000
 
 
 

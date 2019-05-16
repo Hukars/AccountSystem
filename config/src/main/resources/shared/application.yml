@@ -11,7 +11,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 100000
+            timeoutInMilliseconds: 10000
 
 security:
   oauth2:

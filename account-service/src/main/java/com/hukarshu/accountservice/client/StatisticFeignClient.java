@@ -14,7 +14,7 @@ import java.util.List;
  * @Date: 21/04/2019 10:31
  * @Description:
  */
-@FeignClient(name="statistic-service")
+@FeignClient(name="statistic-service",fallback = StatisticFeignClientFallback.class)
 public interface StatisticFeignClient {
 
     @RequestMapping(method = RequestMethod.POST, value = "/statistics/{nickname}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)

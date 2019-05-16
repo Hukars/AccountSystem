@@ -57,7 +57,7 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.save(account);
 
         log.info("New Account has been created:"+user.getUsername());
-        return  account;
+        return account;
     }
 
     @Override

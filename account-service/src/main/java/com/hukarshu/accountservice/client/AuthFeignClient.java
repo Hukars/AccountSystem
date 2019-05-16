@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @Date: 2019/4/9 14:24
  * @Description:
  */
-@FeignClient(name="auth-service")
+@FeignClient(name="auth-service", fallback = AuthFeignClientFallback.class)
 public interface AuthFeignClient {
     @RequestMapping(method = RequestMethod.POST, value = "/uaa/users/", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     void createUser(User user);
